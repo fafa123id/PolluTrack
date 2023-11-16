@@ -21,6 +21,7 @@ public class gantinama extends javax.swing.JFrame {
      */
     public gantinama() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -115,6 +116,7 @@ public class gantinama extends javax.swing.JFrame {
              namabaru.setText("");
             JOptionPane.showMessageDialog(this, "Nama Terganti");
             MainMenu.x.fetch();
+            MainMenu.namakan=nm;
             
             this.dispose();
 

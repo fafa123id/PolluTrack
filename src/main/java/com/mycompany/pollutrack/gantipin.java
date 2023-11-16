@@ -23,6 +23,7 @@ public class gantipin extends javax.swing.JFrame {
      */
     public gantipin() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

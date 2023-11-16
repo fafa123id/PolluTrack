@@ -23,6 +23,7 @@ public class Profil extends javax.swing.JFrame {
     public Profil() {
         initComponents();
         fetch();
+        setLocationRelativeTo(null);
         
     }
      static String maskString(String inputString, int visibleChars) {

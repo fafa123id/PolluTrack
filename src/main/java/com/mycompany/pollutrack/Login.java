@@ -22,6 +22,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -200,7 +201,7 @@ public class Login extends javax.swing.JFrame {
     
     void loginFunction(){
         boolean perloginan=false;
-         String jdbcURL = "jdbc:sqlserver://localhost:1433;databaseName=BDKEL6;encrypt=true;trustServerCertificate=true;";
+        String jdbcURL = "jdbc:sqlserver://localhost:1433;databaseName=BDKEL6;encrypt=true;trustServerCertificate=true;";
         String usernameDB = "sa";
         String passwordDB = "fafa12345";
         String useradmin="";
@@ -240,7 +241,7 @@ public class Login extends javax.swing.JFrame {
                 
             }
             if(perloginan){
-                 MainMenu.b.login=true;
+                MainMenu.b.login=true;
                 MainMenu.namakan=namaUser;
                 MainMenu.userit=usernameUser;
                 JOptionPane.showMessageDialog(this, "Login Benar");

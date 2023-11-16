@@ -4,6 +4,9 @@
  */
 package com.mycompany.pollutrack;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +25,8 @@ public class MainMenu extends javax.swing.JFrame {
         initComponents();
         System.err.print(Admin);
         tampilanLogin();
+        setLocationRelativeTo(null);
+       
     }
 
     /**
@@ -45,6 +50,8 @@ public class MainMenu extends javax.swing.JFrame {
         KeProfil = new javax.swing.JButton();
         buatLaporan = new javax.swing.JButton();
         MenuAdmin = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -174,7 +181,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(blmlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(sdhlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,17 +202,45 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton1.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jButton1.setText("LIHAT DATA PENCEMARAN KOTA");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jButton2.setText("LIHAT DATA KALKULASI PENCEMARAN");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 361, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,7 +264,9 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void MenuAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAdminActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Halo Admin");
+        this.dispose();
+        new MenuAdmin().setVisible(true);
     }//GEN-LAST:event_MenuAdminActionPerformed
 
     private void KeProfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KeProfilActionPerformed
@@ -239,8 +276,17 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_KeProfilActionPerformed
 
     private void buatLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buatLaporanActionPerformed
-        // TODO add your handling code here:
+        new Laporan().setVisible(login);
     }//GEN-LAST:event_buatLaporanActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        new Kota().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
     void tampilanLogin(){
        sdhlogin.setVisible(login);
        blmlogin.setVisible(!login);
@@ -295,6 +341,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JToggleButton Regis;
     public static javax.swing.JPanel blmlogin;
     private javax.swing.JButton buatLaporan;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     public static javax.swing.JPanel jPanel1;

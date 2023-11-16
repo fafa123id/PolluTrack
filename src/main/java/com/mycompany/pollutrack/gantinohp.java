@@ -23,6 +23,7 @@ public class gantinohp extends javax.swing.JFrame {
      */
     public gantinohp() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

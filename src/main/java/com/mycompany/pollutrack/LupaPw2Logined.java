@@ -21,6 +21,7 @@ public class LupaPw2Logined extends javax.swing.JFrame {
      */
     public LupaPw2Logined() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

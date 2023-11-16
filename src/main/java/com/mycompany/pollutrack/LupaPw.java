@@ -24,6 +24,7 @@ public class LupaPw extends javax.swing.JFrame {
      */
     public LupaPw() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     public static String UserGanti = "";
     void userbenar(){

@@ -23,6 +23,7 @@ public class LupaPw2 extends javax.swing.JFrame {
      */
     public LupaPw2() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
