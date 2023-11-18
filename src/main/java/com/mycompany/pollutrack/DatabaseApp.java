@@ -13,7 +13,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 public class DatabaseApp extends JFrame {
-    private JButton button1, button2, button3;
+    private JButton button2;
     private JTable resultTable;
     private DefaultTableModel tableModel;
 
@@ -22,38 +22,24 @@ public class DatabaseApp extends JFrame {
         setTitle("Tempekkan Data");
         setLayout(new BorderLayout());
 
-        // Tombol 1
-        button1 = new JButton("Pencemaran Air");
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                displayDataFromDatabase("SELECT * FROM PENCEMARAN_AIR ");
-            }
-        });
 
         // Tombol 2
-        button2 = new JButton("Pencemaran Tanah");
+        button2 = new JButton("Back");
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayDataFromDatabase("SELECT * FROM PENCEMARAN_TANAH");
+                MainMenu.c.dispose();
+                new MainMenu().setVisible(true);
             }
         });
 
-        // Tombol 3
-        button3 = new JButton("Pencemaran Udara");
-        button3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                displayDataFromDatabase("SELECT * FROM PENCEMARAN_UDARA");
-            }
-        });
+        
 
         // Panel tombol
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(button1);
+        
         buttonPanel.add(button2);
-        buttonPanel.add(button3);
+        
 
         // Inisialisasi model tabel
         tableModel = new DefaultTableModel();
@@ -62,7 +48,22 @@ public class DatabaseApp extends JFrame {
         // Panel utama
         add(buttonPanel, BorderLayout.NORTH);
         add(new JScrollPane(resultTable), BorderLayout.CENTER);
-
+        displayDataFromDatabase("SELECT Nama_Lokasi, b.Nilai_IP AS 'Indeks Pencemaran Air', c.ISPU AS 'ISPU', d.Tingkat_pencemaran_tanah AS 'Indeks Pencemaran Tanah',\n" +
+"(0.376*b.Nilai_IP) + (0.405*c.ISPU) + (0.219*d.Tingkat_pencemaran_tanah) AS IKLH,\n" +
+"CASE\n" +
+"        WHEN (0.376*b.Nilai_IP) + (0.405*c.ISPU) + (0.219*d.Tingkat_pencemaran_tanah)<= 25 THEN 'Sangat Sehat'\n" +
+"        WHEN (0.376*b.Nilai_IP) + (0.405*c.ISPU) + (0.219*d.Tingkat_pencemaran_tanah) BETWEEN 25 AND 50 THEN 'Sehat'\n" +
+"        WHEN (0.376*b.Nilai_IP) + (0.405*c.ISPU) + (0.219*d.Tingkat_pencemaran_tanah) BETWEEN 50 AND 75 THEN 'Kurang Sehat'\n" +
+"        WHEN (0.376*b.Nilai_IP) + (0.405*c.ISPU) + (0.219*d.Tingkat_pencemaran_tanah) BETWEEN 75 AND 100 THEN 'Tidak Sehat'\n" +
+"        ELSE 'Berbahaya'\n" +
+"END\n" +
+"AS 'Status Kesehatan Lingkungan'\n" +
+"From Lokasi a \n" +
+"Join Pencemaran_air b on a.ID_LOKASI=b.ID_LOKASI\n" +
+"Join Pencemaran_udara c on a.ID_LOKASI=c.ID_LOKASI\n" +
+"Join Pencemaran_tanah d on a.ID_LOKASI=d.ID_LOKASI\n" +
+"ORDER BY \n" +
+"    (0.376 * b.Nilai_IP) + (0.405 * c.ISPU) + (0.219 * d.Tingkat_pencemaran_tanah) ASC");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 500);
         setLocationRelativeTo(null);
@@ -72,7 +73,7 @@ public class DatabaseApp extends JFrame {
     private void displayDataFromDatabase(String query) {
         String jdbcURL = "jdbc:sqlserver://localhost:1433;databaseName=BDKEL6;encrypt=true;trustServerCertificate=true;";
         String usernameDB = "sa";
-        String passwordDB = "senopati123";
+        String passwordDB = "fafa12345";
 
         try (Connection connection = DriverManager.getConnection(jdbcURL, usernameDB, passwordDB)) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -102,15 +103,6 @@ public class DatabaseApp extends JFrame {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new DatabaseApp();
-            }
-        });
     }
 }
 

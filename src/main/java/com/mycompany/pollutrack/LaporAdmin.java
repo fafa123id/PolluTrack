@@ -81,12 +81,12 @@ public class LaporAdmin extends javax.swing.JFrame {
             Statement statement = connection.createStatement();
 
             // Step 2: Execute a query to fetch data from the database
-            String selectDataSQL = "SELECT a.* FROM Pengguna a JOIN Laporan b ON a.Kode_Pengguna=b.Kode_Pengguna";
+            String selectDataSQL = "SELECT b.* FROM Pengguna a JOIN Laporan b ON a.Kode_Pengguna=b.Kode_Pengguna";
             ResultSet resultSet = statement.executeQuery(selectDataSQL);
 
             // Step 5: Add rows to the model
             while (resultSet.next()) {
-               listModel.addElement(resultSet.getString("Username"));
+               listModel.addElement(resultSet.getString("Id_Laporan"));
             }
         Listuser.setModel(listModel);
         } catch (SQLException e) {
@@ -199,7 +199,7 @@ public class LaporAdmin extends javax.swing.JFrame {
 
     private void tanahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanahActionPerformed
         if(user.equals("")){
-            JOptionPane.showMessageDialog(this, "Pilih sebuah user");
+            JOptionPane.showMessageDialog(this, "Pilih sebuah laporan");
             return;
         }
         new TampilLapor().setVisible(true);
@@ -221,7 +221,7 @@ public class LaporAdmin extends javax.swing.JFrame {
 
     private void airActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_airActionPerformed
         if(user.equals("")){
-            JOptionPane.showMessageDialog(this, "Pilih sebuah user");
+            JOptionPane.showMessageDialog(this, "Pilih sebuah laporan");
             return;
         }
         delete();
@@ -239,7 +239,7 @@ public class LaporAdmin extends javax.swing.JFrame {
         String passwordDB = "fafa12345";
          
          try (Connection connection = DriverManager.getConnection(jdbcURL, usernameDB, passwordDB);
-             PreparedStatement statement = connection.prepareStatement(String.format("DELETE Laporan WHERE Kode_Pengguna=(SELECT Kode_Pengguna FROM Pengguna WHERE Username='%s')", user))){
+             PreparedStatement statement = connection.prepareStatement(String.format("DELETE Laporan WHERE ID_LAPORAN='%s'", user))){
           
            statement.executeUpdate();
             JOptionPane.showMessageDialog(this, "Laporan dihapus");

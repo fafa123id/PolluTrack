@@ -130,7 +130,7 @@ public class TampilLapor extends javax.swing.JFrame {
             Statement statement = connection.createStatement();
 
             // Step 2: Execute a query to fetch data from the database
-            String selectDataSQL = "SELECT a.*,b.* FROM LAPORAN a JOIN PENGGUNA b ON a.KODE_PENGGUNA=b.KODE_PENGGUNA WHERE Username='"+LaporAdmin.user+"'";
+            String selectDataSQL = "SELECT a.*,b.* FROM LAPORAN a JOIN PENGGUNA b ON a.KODE_PENGGUNA=b.KODE_PENGGUNA WHERE Id_Laporan='"+LaporAdmin.user+"'";
             ResultSet resultSet = statement.executeQuery(selectDataSQL);
 
             // Step 5: Add rows to the model
