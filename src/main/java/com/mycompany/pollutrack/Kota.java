@@ -312,7 +312,6 @@ public class Kota extends javax.swing.JFrame {
         kotaApa=(Listuser.getSelectedValue());
     }//GEN-LAST:event_ListuserValueChanged
     void tampilin(){
-            this.dispose();
             new TrackPencemaran().setVisible(true); 
     }
     /**

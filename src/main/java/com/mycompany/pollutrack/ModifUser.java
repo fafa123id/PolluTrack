@@ -4,17 +4,84 @@
  */
 package com.mycompany.pollutrack;
 
+import static com.mycompany.pollutrack.Kota.kotaApa;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ahmad
  */
 public class ModifUser extends javax.swing.JFrame {
-
+     private DefaultListModel<String> listModel;
+     static String user="";
+     String punyaadmin="";
     /**
      * Creates new form ModifUser
      */
+    void fetching(){
+        String jdbcURL = "jdbc:sqlserver://localhost:1433;databaseName=BDKEL6;encrypt=true;trustServerCertificate=true;";
+        String usernameDB = "sa";
+        String passwordDB = "fafa12345";
+        try (Connection connection = DriverManager.getConnection(jdbcURL, usernameDB, passwordDB)) {
+            // Step 1: Create a statement
+            Statement statement = connection.createStatement();
+
+            // Step 2: Execute a query to fetch data from the database
+            String selectDataSQL = "SELECT * FROM Pengguna";
+            ResultSet resultSet = statement.executeQuery(selectDataSQL);
+
+            // Step 5: Add rows to the model
+            while (resultSet.next()) {
+               listModel.addElement(resultSet.getString("Username"));
+            }
+        Listuser.setModel(listModel);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public ModifUser() {
+        cariadmin();
+        user="";
+        listModel = new DefaultListModel<>();
         initComponents();
+        setLocationRelativeTo(null);
+        fetching();
+        fetchuser.setVisible(false);
+         Search.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterList();
+                fetchuser.setVisible(false);
+                user="";
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterList();
+                fetchuser.setVisible(false);
+                user="";
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterList();
+                fetchuser.setVisible(false);
+                user="";
+            }
+        });
+        
     }
 
     /**
@@ -26,7 +93,6 @@ public class ModifUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         Listuser = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
@@ -35,8 +101,10 @@ public class ModifUser extends javax.swing.JFrame {
         tanah = new javax.swing.JButton();
         air = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        fetchuser = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabel = new javax.swing.JTable();
+        udara1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,40 +125,38 @@ public class ModifUser extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Listuser);
 
-        jScrollPane2.setViewportView(jScrollPane1);
-
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("PILIH USER");
 
-        udara.setText("Track Pencemaran Udara");
+        udara.setText("Fetch User");
         udara.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 udaraActionPerformed(evt);
             }
         });
 
-        tanah.setText("Track Pencemaran Tanah");
+        tanah.setText("Ganti Pw User");
         tanah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tanahActionPerformed(evt);
             }
         });
 
-        air.setText("Track Pencemaran Air");
+        air.setText("Ganti PIN User");
         air.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 airActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Back To Main Menu");
+        jButton5.setText("Back To Admin Menu");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -101,48 +167,78 @@ public class ModifUser extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        tabel.setEnabled(false);
+        jScrollPane3.setViewportView(tabel);
+
+        javax.swing.GroupLayout fetchuserLayout = new javax.swing.GroupLayout(fetchuser);
+        fetchuser.setLayout(fetchuserLayout);
+        fetchuserLayout.setHorizontalGroup(
+            fetchuserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fetchuserLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        fetchuserLayout.setVerticalGroup(
+            fetchuserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fetchuserLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+        );
+
+        udara1.setText("Hapus User");
+        udara1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                udara1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(fetchuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(Search, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2)
-                        .addComponent(air, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tanah, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                        .addComponent(udara, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(jLabel1))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(air, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tanah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(udara, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(udara1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Search)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(fetchuser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addComponent(udara)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(udara1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tanah)
-                .addGap(8, 8, 8)
+                .addGap(6, 6, 6)
                 .addComponent(air)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
-                .addContainerGap(420, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,75 +249,174 @@ public class ModifUser extends javax.swing.JFrame {
     }//GEN-LAST:event_ListuserMouseClicked
 
     private void ListuserValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ListuserValueChanged
-        
+        user=Listuser.getSelectedValue();
+        fetchtable();
+        fetchuser.setVisible(true);
+    
     }//GEN-LAST:event_ListuserValueChanged
-
-    private void udaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_udaraActionPerformed
+    private void filterList() {
+        String searchTerm = Search.getText().toLowerCase();
+        DefaultListModel<String> filteredModel = new DefaultListModel<>();
+        
+        // Memfilter elemen-elemen berdasarkan pencarian
+        for (int i = 0; i < listModel.getSize(); i++) {
+            String item = listModel.getElementAt(i).toLowerCase();
+            if (item.contains(searchTerm)) {
+                filteredModel.addElement(listModel.getElementAt(i));
+            }
+        }
+        
+        // Mengatur model baru untuk JList
+        Listuser.setModel(filteredModel);
+        
+    }
+    public static void fetchtable(){
        
+        String jdbcURL = "jdbc:sqlserver://localhost:1433;databaseName=BDKEL6;encrypt=true;trustServerCertificate=true;";
+        String usernameDB = "sa";
+        String passwordDB = "fafa12345";
+         try (Connection connection = DriverManager.getConnection(jdbcURL, usernameDB, passwordDB)) {
+            // Step 1: Create a statement
+            Statement statement = connection.createStatement();
 
+            // Step 2: Execute a query to fetch data from the database
+            String selectDataSQL = "SELECT * FROM Pengguna WHERE Username = '"+user+"'";
+            ResultSet resultSet = statement.executeQuery(selectDataSQL);
+
+            // Step 3: Create a DefaultTableModel
+            DefaultTableModel tableModel = new DefaultTableModel();
+
+            // Step 4: Add columns to the model
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                tableModel.addColumn(metaData.getColumnName(columnIndex));
+            }
+
+            // Step 5: Add rows to the model
+            while (resultSet.next()) {
+                Object[] rowData = new Object[columnCount];
+                for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+                    rowData[columnIndex - 1] = resultSet.getObject(columnIndex);
+                }
+                tableModel.addRow(rowData);
+            }
+            
+            // Step 6: Create a JTable with the DefaultTableModel
+            tabel.setModel(tableModel);
+            
+            
+            
+            // Step 7: Create a JFrame to display the JTable
+            
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    void cariadmin(){
+        String jdbcURL = "jdbc:sqlserver://localhost:1433;databaseName=BDKEL6;encrypt=true;trustServerCertificate=true;";
+        String usernameDB = "sa";
+        String passwordDB = "fafa12345";
+        try (Connection connection = DriverManager.getConnection(jdbcURL, usernameDB, passwordDB)) {
+            // Step 1: Create a statement
+            Statement statement = connection.createStatement();
+
+            // Step 2: Execute a query to fetch data from the database
+            String selectDataSQL = "SELECT * FROM Pengguna WHERE Kode_PENGGUNA = 'aDPt102934'";
+            ResultSet resultSet = statement.executeQuery(selectDataSQL);
+
+        
+            while (resultSet.next()) {
+                punyaadmin=resultSet.getString("Username");
+            }
+            
+            
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    void delete(){
+        String jdbcURL = "jdbc:sqlserver://localhost:1433;databaseName=BDKEL6;encrypt=true;trustServerCertificate=true;";
+        String usernameDB = "sa";
+        String passwordDB = "fafa12345";
+         
+         try (Connection connection = DriverManager.getConnection(jdbcURL, usernameDB, passwordDB);
+             PreparedStatement statement = connection.prepareStatement("Delete Pengguna Where Username ='"+user+"'")){
+          
+           statement.executeUpdate();
+            JOptionPane.showMessageDialog(this, "User dihapus");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occurred: " + ex.getMessage());
+        }
+    }
+    private void udaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_udaraActionPerformed
+        
+        listModel= new DefaultListModel<>();
+        fetching();
+        fetchuser.setVisible(false);
     }//GEN-LAST:event_udaraActionPerformed
 
     private void tanahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tanahActionPerformed
-       
+        if(user.equals("")){
+            JOptionPane.showMessageDialog(this, "Pilih sebuah user");
+            return;
+        }
+        new gantipwadmin().setVisible(true);
     }//GEN-LAST:event_tanahActionPerformed
 
     private void airActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_airActionPerformed
-
-       
+        if(user.equals("")){
+            JOptionPane.showMessageDialog(this, "Pilih sebuah user");
+            return;
+        }
+        new gantipinadmin().setVisible(true);
     }//GEN-LAST:event_airActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         this.dispose();
-        MainMenu.b=new MainMenu();
-        MainMenu.b.setVisible(true);
+       new MenuAdmin().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void udara1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_udara1ActionPerformed
+        if(user.equals("")){
+            JOptionPane.showMessageDialog(this, "Pilih sebuah user");
+            return;
+        }
+        if(user.equals(punyaadmin)){
+            JOptionPane.showMessageDialog(this, "Admin jangan dihapus :(");
+            return;
+        }
+        delete();
+        listModel= new DefaultListModel<>();
+        fetching();
+        fetchuser.setVisible(false);
+        fetchtable();
+    }//GEN-LAST:event_udara1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ModifUser().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> Listuser;
     private javax.swing.JTextField Search;
     private javax.swing.JButton air;
+    private javax.swing.JPanel fetchuser;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable tabel;
     private javax.swing.JButton tanah;
     private javax.swing.JButton udara;
+    private javax.swing.JButton udara1;
     // End of variables declaration//GEN-END:variables
 }

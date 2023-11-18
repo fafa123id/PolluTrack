@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +22,12 @@ public class tambahLokasi extends javax.swing.JFrame {
     /**
      * Creates new form tambahLokasi
      */
+    public static String capitalizeFirstLetter(String input) {
+        if (input == null || input.isEmpty()) {
+            return input; // Kembalikan string asli jika kosong atau null
+        }
+        return input.substring(0, 1).toUpperCase() + input.substring(1);
+    }
     public tambahLokasi() {
         initComponents();
         setLocationRelativeTo(null);
@@ -99,9 +106,15 @@ public class tambahLokasi extends javax.swing.JFrame {
     private void tmbhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tmbhActionPerformed
         if(lokmasuk.getText().trim().equals("")){
             JOptionPane.showMessageDialog(this, "Jangan Kosong");
+            
         }
         else{
             insertLok();
+            TambahPencemaran.user="";
+            TambahPencemaran.pencemaran="";
+            
+            TambahPencemaran.listModel=new DefaultListModel();
+            TambahPencemaran.fetching();
         }
     }//GEN-LAST:event_tmbhActionPerformed
     void insertLok(){
@@ -131,7 +144,7 @@ public class tambahLokasi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "An error occurred: " + ex.getMessage());
         }
             try (Connection connection = DriverManager.getConnection(jdbcURL, usernameDB, passwordDB);
-             PreparedStatement statement = connection.prepareStatement(String.format("INSERT INTO LOKASI VALUES('%d','%s')", idLokasi+1,nm))) {
+             PreparedStatement statement = connection.prepareStatement(String.format("INSERT INTO LOKASI VALUES('%d','%s')", idLokasi+1,capitalizeFirstLetter(nm)))) {
           
            statement.executeUpdate();
           
@@ -151,37 +164,7 @@ public class tambahLokasi extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tambahLokasi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tambahLokasi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tambahLokasi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tambahLokasi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new tambahLokasi().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;

@@ -272,7 +272,8 @@ public class LupaPw extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dftrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dftrActionPerformed
-
+        this.dispose();
+        new Register().setVisible(true);
     }//GEN-LAST:event_dftrActionPerformed
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed

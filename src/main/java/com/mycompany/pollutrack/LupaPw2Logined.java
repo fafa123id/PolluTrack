@@ -140,6 +140,14 @@ public class LupaPw2Logined extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+        if(pwnew.getText().equals("")||pwnew2.getText().equals("")){
+        JOptionPane.showMessageDialog(this, "Jangan dikosongkan");
+        return;
+    }
+        if(pwnew.getText().length()<7||pwnew2.getText().length()<7){
+        JOptionPane.showMessageDialog(this, "Password minimal 7 digit");
+        return;
+    }
         checkGanti();
     }//GEN-LAST:event_resetActionPerformed
 

@@ -62,6 +62,12 @@ public class gantipin extends javax.swing.JFrame {
 
         jLabel2.setText("Masukkan PIN Baru");
 
+        pinbaru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pinbaruActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,6 +116,10 @@ public class gantipin extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         checkGanti();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void pinbaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinbaruActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pinbaruActionPerformed
     static boolean isNumeric(String str) {
         try {
             // Mencoba mengonversi string menjadi integer

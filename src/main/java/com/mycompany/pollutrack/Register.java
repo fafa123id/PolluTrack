@@ -229,17 +229,29 @@ public class Register extends javax.swing.JFrame {
         }
     }
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        if(!"".equals(User.getText().trim())&&!"".equals(Name.getText().trim())&&!"".equals(Pw.getText().trim())&&!"".equals(pin.getText().trim())&&!"".equals(Phone.getText().trim()))
-            if(isNumeric(Phone.getText()))
-                if(Phone.getText().length()>6)
-                    if(isNumeric(pin.getText()))
-                        if(pin.getText().length()==6)
-                            loginFunction();
-                        else JOptionPane.showMessageDialog(this, "PIN harus 6 digit");
-                    else JOptionPane.showMessageDialog(this, "PIN harus angka");
-                else JOptionPane.showMessageDialog(this, "Nomor hp minimal 7 digit");
-            else JOptionPane.showMessageDialog(this, "Nomor hp harus angka");
-        else JOptionPane.showMessageDialog(this, "Field tidak boleh ada yang kosong");
+        if("".equals(User.getText().trim())||"".equals(Name.getText().trim())||"".equals(Pw.getText().trim())||"".equals(pin.getText().trim())||"".equals(Phone.getText().trim())){
+            JOptionPane.showMessageDialog(this, "Field tidak boleh ada yang kosong");
+            return;
+        }
+        if(!isNumeric(Phone.getText())){
+            JOptionPane.showMessageDialog(this, "Nomor hp harus angka");
+            return;
+        }
+        if(Phone.getText().length()<7){
+            JOptionPane.showMessageDialog(this, "Nomor hp minimal 7 digit");
+            return;
+        }
+        if(!(isNumeric(pin.getText()))||!(pin.getText().length()==6)){
+            JOptionPane.showMessageDialog(this, "PIN harus angka 6 digit");
+            return;
+        }
+        if((Pw.getText().length()<6)){
+            JOptionPane.showMessageDialog(this, "Password minimal 7 digit");
+            return;
+        }
+        loginFunction();
+                
+            
         
     }//GEN-LAST:event_LoginActionPerformed
 

@@ -57,14 +57,14 @@ public class TrackPencemaran extends javax.swing.JFrame {
             ResultSet resultSet = statement.executeQuery(query);
        
             while (resultSet.next()) {
-                System.err.println("hiyaaa");
+               
                 if(resultSet==null){
                     JOptionPane.showMessageDialog(this, "Database belum dientry");
                     break;
                 }
                 if(Kota.pencemaranApa.equals("tanah")){
                     indeks.setText(resultSet.getString("Tingkat_pencemaran_tanah"));
-                    labelindeks.setText("Tingkat Pencemaran Tanah:");
+                    labelindeks.setText("Indeks P.Tanah:");
                 }
                 else{
                     notTanah.setVisible(true);
@@ -114,7 +114,6 @@ public class TrackPencemaran extends javax.swing.JFrame {
         status = new javax.swing.JLabel();
         kota = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,16 +193,10 @@ public class TrackPencemaran extends javax.swing.JFrame {
             notTanah1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(notTanah1Layout.createSequentialGroup()
                 .addGroup(notTanah1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(notTanah1Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addGroup(notTanah1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(status)))
-                    .addGroup(notTanah1Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addGroup(notTanah1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelindeks)
-                            .addComponent(indeks))))
+                    .addComponent(jLabel6)
+                    .addComponent(status)
+                    .addComponent(labelindeks)
+                    .addComponent(indeks))
                 .addGap(0, 0, 0))
         );
         notTanah1Layout.setVerticalGroup(
@@ -230,13 +223,6 @@ public class TrackPencemaran extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("To Main Menu");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -248,19 +234,15 @@ public class TrackPencemaran extends javax.swing.JFrame {
                     .addComponent(notTanah1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(notTanah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(kota))
                 .addContainerGap(79, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(kota)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(kota, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(notTanah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,9 +250,7 @@ public class TrackPencemaran extends javax.swing.JFrame {
                 .addComponent(notTanah1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,14 +258,7 @@ public class TrackPencemaran extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
-        new Kota().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
-        MainMenu.b= new MainMenu();
-        MainMenu.b.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,7 +268,6 @@ public class TrackPencemaran extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel indeks;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
